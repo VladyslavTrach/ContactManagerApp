@@ -1,0 +1,61 @@
+﻿@{
+    ViewData["Title"] = "Add User To DB";
+}
+
+<div class="container">
+    <h2>Add User</h2>
+    <div class="row">
+        <div class="col-md-6" style="background-color:whitesmoke">
+            <form asp-action="AddUser" method="post" class="form">
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <label for="Name">Name:</label>
+                    <input type="text" class="form-control" id="Name" name="Name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="DateOfBirth">Date Of Birth:</label>
+                    <input type="date" class="form-control" id="DateOfBirth" name="DateOfBirth" required>
+                </div>
+
+                <div class="form-check">
+                    <label class="form-check-label" for="Married">Married</label>
+                    <input type="checkbox" class="form-check-input" id="Married" name="Married">
+                </div>
+
+                <div class="form-group">
+                    <label for="Phone">Phone:</label>
+                    <input type="text" class="form-control" id="Phone" name="Phone" required>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 10px;">
+                    <label for="Salary">Salary:</label>
+                    <input type="number" class="form-control" id="Salary" name="Salary" step="0.01" required>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">Add User</button>
+            </form>
+        </div>
+
+        <div class="col-md-4" style="background-color: whitesmoke; align-content:center">
+            <h4>Or Upload CSV</h4>
+            <div class="row" style="margin-left: 10px;">
+                <div style="background-color: whitesmoke">
+                    <form asp-action="UploadCSV" method="post" class="form" enctype="multipart/form-data" style="align-items: flex-start;">
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group">
+                            <label for="UserImage"></label>
+                            <input type="file" class="form-control-file" id="UserCSV" name="UserCSV" style="margin-bottom: 10px;" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Upload CSV</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+</div>

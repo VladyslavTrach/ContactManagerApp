@@ -1,8 +1,87 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>User List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+</head>
+<body>
+    <div class="container">
+        <h1>Filter by</h1>
+
+        <!-- Flex container for horizontal alignment -->
+        <div style="display: flex; flex-wrap: wrap;">
+            <!-- Filter by Name -->
+            <div class="form-group" style="flex: 1; margin-right: 10px;">
+                <label for="filterName">Name:</label>
+                <input type="text" id="filterName" class="form-control" placeholder="Enter Name">
+            </div>
+
+            <!-- Filter by Date of Birth -->
+            <div class="form-group" style="flex: 1; margin-right: 10px;">
+                <label for="filterDoB">Date of Birth:</label>
+                <input type="text" id="filterDoB" class="form-control" placeholder="Enter Date of Birth">
+            </div>
+
+            <!-- Filter by Married (Boolean) -->
+            <div class="form-group" style="flex: 1; margin-right: 10px;">
+                <label for="filterMarried">Married:</label>
+                <select id="filterMarried" class="form-control">
+                    <option value="">-- All --</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <!-- Filter by Phone -->
+            <div class="form-group" style="flex: 1; margin-right: 10px;">
+                <label for="filterPhone">Phone:</label>
+                <input type="text" id="filterPhone" class="form-control" placeholder="Enter Phone">
+            </div>
+
+            <!-- Filter by Salary -->
+            <div class="form-group" style="flex: 1;">
+                <label for="filterSalary">Salary:</label>
+                <input type="text" id="filterSalary" class="form-control" placeholder="Enter Salary">
+            </div>
+        </div>
+
+        <h1 style="margin-top : 50px;">User Table</h1>
+
+        <table class="table table-bordered" id="userTable">
+            <thead style="background-color: gray">
+                <tr>
+                    <th class="sortable" data-sort="Name">Name <i class="fas fa-sort"></i></th>
+                    <th class="sortable" data-sort="DateOfBirth">Date of Birth <i class="fas fa-sort"></i></th>
+                    <th class="sortable" data-sort="Married">Married <i class="fas fa-sort"></i></th>
+                    <th class="sortable" data-sort="Phone">Phone <i class="fas fa-sort"></i></th>
+                    <th class="sortable" data-sort="Salary">Salary <i class="fas fa-sort"></i></th>
+                    <th >Operations</th>
+                </tr>
+            </thead>
+            <tbody style="background-color:whitesmoke">
+                @foreach (var user in Model)
+                {
+                    <tr>
+                        <td>@user.Name</td>
+                        <td>@user.DateOfBirth.ToShortDateString()</td>
+                        <td>@(user.Married ? "Yes" : "No")</td>
+                        <td>@user.Phone</td>
+                        <td>@user.Salary</td>
+                        <td>
+                            <button class="edit-btn">Edit</button>
+                            <button class="delete-btn">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script src="~/js/filter.js"></script>
+    <script src="~/js/filterByClick.js"></script>
+</body>
+</html>
