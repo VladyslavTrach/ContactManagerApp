@@ -33,10 +33,52 @@ namespace ContactManagerApp.Controllers
 
 
         [HttpGet]
-        public IActionResult AddUser()
+        public IActionResult EditUser(int id)
         {
-            return View();
+            var user = _context.Persons.Where(u => u.Id == id).FirstOrDefault();
+            return View(user);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditUserInDb(PersonModel updatedPerson)
+        {
+            try
+            {
+                if (ModelState.IsValid && ValidateData(updatedPerson))
+                {
+                    // Find the existing user by ID
+                    var existingUser = _context.Persons.Find(updatedPerson.Id);
+
+                    if (existingUser == null)
+                    {
+                        // User not found
+                        return Json(new { success = false, message = "User not found." });
+                    }
+
+                    // Update the existing user's properties with the new values
+                    existingUser.Name = updatedPerson.Name;
+                    existingUser.DateOfBirth = updatedPerson.DateOfBirth;
+                    existingUser.Married = updatedPerson.Married;
+                    existingUser.Phone = updatedPerson.Phone;
+                    existingUser.Salary = updatedPerson.Salary;
+
+                    // Save the changes to the database
+                    _context.SaveChanges();
+
+                    // Redirect back to the Index action to refresh the user list
+                    return RedirectToAction("Index");
+                }
+                return Json(new { success = false, message = "Incorrect User Data. User not updated." });
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately.
+                return Json(new { success = false, message = "An error occurred while processing your request." });
+            }
+        }
+
+
 
 
         [HttpPost]
@@ -162,6 +204,34 @@ namespace ContactManagerApp.Controllers
 
             return true;
         }
+
+        [HttpDelete]
+        public IActionResult DeleteUser(int id)
+        {
+            try
+            {
+                // Find the user by ID
+                var user = _context.Persons.Find(id);
+
+                if (user == null)
+                {
+                    // User not found
+                    return Json(new { success = false, message = "User not found." });
+                }
+
+                // Remove the user from the database
+                _context.Persons.Remove(user);
+                _context.SaveChanges();
+
+                return Json(new { success = true, message = "User deleted successfully." });
+            }
+            catch (Exception ex)
+            {
+                // Log or handle the exception appropriately.
+                return Json(new { success = false, message = "An error occurred while processing your request." });
+            }
+        }
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

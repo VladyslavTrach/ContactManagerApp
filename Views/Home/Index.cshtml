@@ -69,8 +69,8 @@
                         <td>@user.Phone</td>
                         <td>@user.Salary</td>
                         <td>
-                            <button class="edit-btn">Edit</button>
-                            <button class="delete-btn">Delete</button>
+                            <a class="edit-btn" href="javascript:void(0);" data-id="@user.Id">Edit</a>
+                            <a class="delete-btn" href="javascript:void(0);" data-id="@user.Id">Delete</a>
                         </td>
                     </tr>
                 }
@@ -83,5 +83,7 @@
 
     <script src="~/js/filter.js"></script>
     <script src="~/js/filterByClick.js"></script>
+    <script src="~/js/DeleteUser.js"></script>
+    <script src="~/js/EditUser.js"></script>
 </body>
 </html>
