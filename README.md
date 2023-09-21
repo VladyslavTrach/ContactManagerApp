@@ -1,5 +1,8 @@
 # ContactManagerApp
 ## _Task is fully implemented(with all requirements)_
+### DB Backup Located in Files/DB BackUp
+![image](https://github.com/VladyslavTrach/ContactManagerApp/assets/99955062/8613bd2d-4e40-44d1-a7e7-62554108e06a)
+
 ### Table with 1 record
 ![image](https://github.com/VladyslavTrach/ContactManagerApp/assets/99955062/f749c03c-0f0a-40f7-84b3-8801f510a27a)
 
