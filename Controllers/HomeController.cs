@@ -31,6 +31,12 @@ namespace ContactManagerApp.Controllers
             return View(users);
         }
 
+        [HttpGet]
+        public IActionResult AddUser()
+        {
+            return View();
+        }
+
 
         [HttpGet]
         public IActionResult EditUser(int id)
@@ -47,33 +53,27 @@ namespace ContactManagerApp.Controllers
             {
                 if (ModelState.IsValid && ValidateData(updatedPerson))
                 {
-                    // Find the existing user by ID
                     var existingUser = _context.Persons.Find(updatedPerson.Id);
 
                     if (existingUser == null)
                     {
-                        // User not found
                         return Json(new { success = false, message = "User not found." });
                     }
 
-                    // Update the existing user's properties with the new values
                     existingUser.Name = updatedPerson.Name;
                     existingUser.DateOfBirth = updatedPerson.DateOfBirth;
                     existingUser.Married = updatedPerson.Married;
                     existingUser.Phone = updatedPerson.Phone;
                     existingUser.Salary = updatedPerson.Salary;
 
-                    // Save the changes to the database
                     _context.SaveChanges();
 
-                    // Redirect back to the Index action to refresh the user list
                     return RedirectToAction("Index");
                 }
                 return Json(new { success = false, message = "Incorrect User Data. User not updated." });
             }
             catch (Exception ex)
             {
-                // Log or handle the exception appropriately.
                 return Json(new { success = false, message = "An error occurred while processing your request." });
             }
         }
@@ -97,7 +97,6 @@ namespace ContactManagerApp.Controllers
             }
             catch (Exception ex)
             {
-                // Log or handle the exception appropriately.
                 ModelState.AddModelError(string.Empty, "An error occurred while processing your request.");
                 return View(person);
             }
@@ -121,7 +120,6 @@ namespace ContactManagerApp.Controllers
                             {
                                 if(ValidateData(record))
                                     {
-                                    // Create a new PersonModel and populate it with the CSV data
                                     var person = new PersonModel
                                     {
                                         Name = record.Name,
@@ -131,7 +129,6 @@ namespace ContactManagerApp.Controllers
                                         Salary = record.Salary
                                     };
 
-                                    // Add the person to the database
                                     _context.Persons.Add(person);
                                 }
                                 
@@ -141,16 +138,13 @@ namespace ContactManagerApp.Controllers
                         }
                     }
 
-                    // You can return a JSON response to indicate success if needed
                     return Json(new { success = true, message = "CSV file uploaded and data added to the database." });
                 }
 
-                // Handle the case where no file was uploaded
                 return Json(new { success = false, message = "Please select a CSV file to upload." });
             }
             catch (Exception ex)
             {
-                // Log or handle the exception appropriately.
                 return Json(new { success = false, message = "An error occurred while processing your request." });
             }
         }
@@ -210,16 +204,13 @@ namespace ContactManagerApp.Controllers
         {
             try
             {
-                // Find the user by ID
                 var user = _context.Persons.Find(id);
 
                 if (user == null)
                 {
-                    // User not found
                     return Json(new { success = false, message = "User not found." });
                 }
 
-                // Remove the user from the database
                 _context.Persons.Remove(user);
                 _context.SaveChanges();
 
@@ -227,7 +218,6 @@ namespace ContactManagerApp.Controllers
             }
             catch (Exception ex)
             {
-                // Log or handle the exception appropriately.
                 return Json(new { success = false, message = "An error occurred while processing your request." });
             }
         }

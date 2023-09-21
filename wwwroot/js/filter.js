@@ -1,10 +1,8 @@
 $(document).ready(function () {
-    // Get a reference to the table
     var table = $('#userTable');
 
-    // Event handler for the filter input boxes
     $('#filterName, #filterDoB, #filterMarried, #filterPhone, #filterSalary').on('input', function () {
-        console.log('Input event triggered'); // Check if this is logged
+        console.log('Input event triggered');
         var filterName = $('#filterName').val().toLowerCase();
         var filterDoB = $('#filterDoB').val().toLowerCase();
         var filterMarried = $('#filterMarried').val().toLowerCase();
@@ -17,7 +15,7 @@ $(document).ready(function () {
         console.log('Phone filter:', filterPhone);
         console.log('Salary filter:', filterSalary);
 
-        // Loop through the table rows
+
         $('tbody tr', table).each(function () {
             var row = $(this);
             var name = $('td:eq(0)', row).text().toLowerCase();
@@ -26,7 +24,6 @@ $(document).ready(function () {
             var phone = $('td:eq(3)', row).text().toLowerCase();
             var salary = $('td:eq(4)', row).text().toLowerCase();
 
-            // Check if the row matches the filter criteria
             if (
                 name.includes(filterName) &&
                 dob.includes(filterDoB) &&

@@ -9,7 +9,6 @@
     <div class="container">
         <h1>Filter by</h1>
 
-        <!-- Flex container for horizontal alignment -->
         <div style="display: flex; flex-wrap: wrap;">
             <!-- Filter by Name -->
             <div class="form-group" style="flex: 1; margin-right: 10px;">
@@ -63,11 +62,11 @@
                 @foreach (var user in Model)
                 {
                     <tr>
-                        <td>@user.Name</td>
-                        <td>@user.DateOfBirth.ToShortDateString()</td>
-                        <td>@(user.Married ? "Yes" : "No")</td>
-                        <td>@user.Phone</td>
-                        <td>@user.Salary</td>
+                        <td data-field="Name">@user.Name </td>
+                        <td data-field="DateOfBirth">@user.DateOfBirth.ToShortDateString()</td>
+                        <td data-field="Married">@(user.Married ? "Yes" : "No")</td>
+                        <td data-field="Phone">@user.Phone</td>
+                        <td data-field="Salary">@user.Salary</td>
                         <td>
                             <a class="edit-btn" href="javascript:void(0);" data-id="@user.Id">Edit</a>
                             <a class="delete-btn" href="javascript:void(0);" data-id="@user.Id">Delete</a>
